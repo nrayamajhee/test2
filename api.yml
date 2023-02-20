@@ -1,0 +1,2033 @@
+openapi: 3.0.4
+info:
+  title: Parafin
+  version: v1
+servers:
+  - url: https://api.dev.parafin.com
+    description: Sandbox server
+paths:
+  /v1/businesses:
+    get:
+      operationId: List Business
+      parameters:
+        - name: page_size
+          in: query
+          description: A limit on the number of objects to be returned. It can range between 1 and 100, default is 10.
+          required: false
+          schema:
+            type: integer
+        - name: page_number
+          in: query
+          description: A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_BusinessSerializer'
+        '400':
+          description: 'Invalid value for: query parameter page_size, Invalid value for: query parameter page_number'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+    post:
+      operationId: Create Business
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessDeserializer'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessSerializer'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+  /v1/businesses/{id}:
+    get:
+      operationId: Get Business
+      parameters:
+        - name: id
+          in: path
+          description: The id of the business to be returned.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessSerializer'
+        '400':
+          description: 'Invalid value for: path parameter id'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+  /v1/persons:
+    get:
+      operationId: List Persons
+      parameters:
+        - name: page_size
+          in: query
+          description: A limit on the number of objects to be returned. It can range between 1 and 100, default is 10.
+          required: false
+          schema:
+            type: integer
+        - name: page_number
+          in: query
+          description: A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_PersonSerializer'
+        '400':
+          description: 'Invalid value for: query parameter page_size, Invalid value for: query parameter page_number'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+    post:
+      operationId: Create Person
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonDeserializer'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonSerializer'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+  /v1/persons/{id}:
+    get:
+      operationId: Get Person
+      parameters:
+        - name: id
+          in: path
+          description: The id of the person to be returned.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonSerializer'
+        '400':
+          description: 'Invalid value for: path parameter id'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+  /v1/sale_records:
+    get:
+      operationId: List Sale Record
+      parameters:
+        - name: page_size
+          in: query
+          description: A limit on the number of objects to be returned. It can range between 1 and 100, default is 10.
+          required: false
+          schema:
+            type: integer
+        - name: page_number
+          in: query
+          description: A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
+          required: false
+          schema:
+            type: integer
+        - name: business_id
+          in: query
+          description: The id of the business associated with the sale records to be returned.
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          description: The date of the sale record to be returned. Format of the date is YYYY-MM-DD
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_SaleRecordSerializer'
+        '400':
+          description: 'Invalid value for: query parameter page_size, Invalid value for: query parameter page_number, Invalid value for: query parameter business_id, Invalid value for: query parameter date'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+    post:
+      operationId: Create Sale Record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaleRecordDeserializer'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaleRecordSerializer'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+  /v1/sale_records/{id}:
+    get:
+      operationId: Get Sale Record
+      parameters:
+        - name: id
+          in: path
+          description: The id of the sale record to be returned.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaleRecordSerializer'
+        '400':
+          description: 'Invalid value for: path parameter id'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+  /v1/bank_account_infos:
+    get:
+      operationId: List Bank Account Info
+      parameters:
+        - name: page_size
+          in: query
+          description: A limit on the number of objects to be returned. It can range between 1 and 100, default is 10.
+          required: false
+          schema:
+            type: integer
+        - name: page_number
+          in: query
+          description: A cursor for pagination across multiple pages of results. Don’t include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_BankAccountInfoSerializer'
+        '400':
+          description: 'Invalid value for: query parameter page_size, Invalid value for: query parameter page_number'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+    post:
+      operationId: Create Bank Account Info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankAccountInfoDeserializer'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountInfoSerializer1'
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+  /v1/bank_account_infos/{id}:
+    get:
+      operationId: Get Bank Account Info
+      parameters:
+        - name: id
+          in: path
+          description: The id of the bank account to be returned.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountInfoSerializer1'
+        '400':
+          description: 'Invalid value for: path parameter id'
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+      x-audience:
+        - PartnerExternal
+        - Internal
+components:
+  schemas:
+    Abandoned:
+      type: object
+    BankAccountInfoDeserializer:
+      required:
+        - business_id
+        - routing_number
+        - account_number_last_four
+      type: object
+      properties:
+        business_id:
+          type: string
+          format: uuid
+        routing_number:
+          type: string
+        account_number_last_four:
+          type: string
+    BankAccountInfoPatchDeserializer:
+      type: object
+      properties:
+        is_active:
+          type: boolean
+        is_desired:
+          type: boolean
+        is_broken:
+          type: boolean
+    BankAccountInfoPostDeserializer:
+      required:
+        - business_id
+        - routing_number
+        - account_number_last_four
+        - is_active
+      type: object
+      properties:
+        business_id:
+          type: string
+          format: uuid
+        routing_number:
+          type: string
+        account_number_last_four:
+          type: string
+        is_active:
+          type: boolean
+    BankAccountInfoSerializer:
+      required:
+        - created_at
+        - updated_at
+        - id
+        - routing_number
+        - account_number
+        - bank_id
+        - bank_name
+        - verified
+        - is_active
+        - is_desired
+        - is_broken
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        routing_number:
+          type: string
+        account_number:
+          type: string
+        bank_id:
+          type: string
+          format: uuid
+        bank_name:
+          type: string
+        verified:
+          type: boolean
+        is_active:
+          type: boolean
+        is_desired:
+          type: boolean
+        is_broken:
+          type: boolean
+    BankAccountInfoSerializer1:
+      required:
+        - id
+        - business_id
+        - routing_number
+        - account_number_last_four
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        business_id:
+          type: string
+          format: uuid
+        routing_number:
+          type: string
+        account_number_last_four:
+          type: string
+    BarChartDatapointSerializer:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: integer
+    BarChartSerializer:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BarChartDatapointSerializer'
+    BeneficialOwnerPatchSerializer:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        birth_date:
+          type: string
+          format: date
+        home_location_address:
+          $ref: '#/components/schemas/LocationAddressSerializer'
+        identification:
+          $ref: '#/components/schemas/IdentificationSerializer'
+    BeneficialOwnerSerializer:
+      required:
+        - business_id
+        - first_name
+        - last_name
+        - birth_date
+        - home_location_address
+        - identification
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        business_id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        birth_date:
+          type: string
+          format: date
+        home_location_address:
+          $ref: '#/components/schemas/LocationAddressSerializer'
+        identification:
+          $ref: '#/components/schemas/IdentificationSerializer'
+    BusinessAnnotationInputSerializer:
+      required:
+        - business_id
+        - note
+      type: object
+      properties:
+        business_id:
+          type: string
+          format: uuid
+        note:
+          type: string
+    BusinessAnnotationSerializer:
+      required:
+        - id
+        - business_id
+        - note
+        - created_at
+        - updated_at
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        business_id:
+          type: string
+          format: uuid
+        note:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    BusinessDataRequirement:
+      required:
+        - dba_name
+        - legal_name
+        - physical_address
+        - contact_email
+        - contact_phone
+        - incorporation_type
+        - incorporation_state
+        - date_established
+        - ein
+        - mcc
+      type: object
+      properties:
+        dba_name:
+          $ref: '#/components/schemas/DataRequirement'
+        legal_name:
+          $ref: '#/components/schemas/DataRequirement'
+        physical_address:
+          $ref: '#/components/schemas/DataRequirement'
+        contact_email:
+          $ref: '#/components/schemas/DataRequirement'
+        contact_phone:
+          $ref: '#/components/schemas/DataRequirement'
+        incorporation_type:
+          $ref: '#/components/schemas/DataRequirement'
+        incorporation_state:
+          $ref: '#/components/schemas/DataRequirement'
+        date_established:
+          $ref: '#/components/schemas/DataRequirement'
+        ein:
+          $ref: '#/components/schemas/DataRequirement'
+        mcc:
+          $ref: '#/components/schemas/DataRequirement'
+    BusinessDeserializer:
+      required:
+        - legal_name
+        - dba_name
+        - contact_email
+        - contact_phone
+        - physical_address
+      type: object
+      properties:
+        legal_name:
+          type: string
+        dba_name:
+          type: string
+        contact_email:
+          type: string
+        contact_phone:
+          type: string
+        physical_address:
+          $ref: '#/components/schemas/LocationAddress'
+    BusinessOnboardingRequirementSerializer:
+      required:
+        - business_id
+        - business
+        - owner
+        - officer
+        - beneficial_owners
+        - requires_kyb
+        - requires_kyc
+        - requires_attestation
+      type: object
+      properties:
+        business_id:
+          type: string
+          format: uuid
+        business:
+          $ref: '#/components/schemas/BusinessDataRequirement'
+        owner:
+          $ref: '#/components/schemas/PersonDataRequirement'
+        officer:
+          $ref: '#/components/schemas/PersonDataRequirement'
+        beneficial_owners:
+          $ref: '#/components/schemas/PersonDataRequirement'
+        requires_kyb:
+          type: boolean
+        requires_kyc:
+          type: boolean
+        requires_attestation:
+          type: boolean
+    BusinessSerializer:
+      required:
+        - id
+        - legal_name
+        - dba_name
+        - contact_email
+        - contact_phone
+        - physical_address
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        legal_name:
+          type: string
+        dba_name:
+          type: string
+        contact_email:
+          type: string
+        contact_phone:
+          type: string
+        physical_address:
+          $ref: '#/components/schemas/LocationAddress1'
+    Cancelled:
+      type: object
+    CapitalProductDeserializer:
+      required:
+        - offer_chunk_id
+        - amount
+      type: object
+      properties:
+        offer_chunk_id:
+          type: string
+          format: uuid
+        amount:
+          type: string
+        capital_purposes:
+          type: array
+          items:
+            type: string
+    CapitalProductOfferChunkSerializer:
+      required:
+        - id
+        - offer_id
+        - holdback_multiplier
+        - fee_multiplier
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        offer_id:
+          type: string
+          format: uuid
+        holdback_multiplier:
+          type: string
+        fee_multiplier:
+          type: string
+        amount_range:
+          type: array
+          items:
+            type: string
+    CapitalProductOfferCollectionSerializer:
+      required:
+        - created_at
+        - updated_at
+        - id
+        - open
+        - business_id
+        - expiration_date
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        open:
+          type: boolean
+        business_id:
+          type: string
+          format: uuid
+        offers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CapitalProductOfferSerializer'
+        expiration_date:
+          type: string
+          format: date
+        offer_boost_amount:
+          type: integer
+    CapitalProductOfferLabel:
+      type: string
+      enum:
+        - 1month
+        - 2month
+        - 3month
+        - 4month
+        - 5month
+        - 6month
+        - 7month
+        - 8month
+        - 9month
+        - 10month
+        - 11month
+        - 12month
+        - 24month
+    CapitalProductOfferSerializer:
+      required:
+        - id
+        - label
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          $ref: '#/components/schemas/CapitalProductOfferLabel'
+        chunks:
+          type: array
+          items:
+            $ref: '#/components/schemas/CapitalProductOfferChunkSerializer'
+        minimum_repayment_period_days:
+          type: integer
+        maturity_months:
+          type: integer
+        total_periods:
+          type: integer
+    CapitalProductSerializer:
+      required:
+        - created_at
+        - updated_at
+        - id
+        - account_id
+        - business_id
+        - product_type
+        - state
+        - amount
+        - fee_amount
+        - holdback_multiplier
+        - fee_multiplier
+        - total_repayment_amount
+        - paid_amount
+        - estimated_repayment_date
+        - date
+        - repayment_start_date
+        - verified
+        - number
+        - funded
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        account_id:
+          type: string
+          format: uuid
+        business_id:
+          type: string
+          format: uuid
+        product_type:
+          $ref: '#/components/schemas/CapitalProductType'
+        state:
+          $ref: '#/components/schemas/CapitalProductState'
+        amount:
+          type: string
+        boost_amount:
+          type: string
+        fee_amount:
+          type: string
+        fee_waiver_amount:
+          type: string
+        holdback_multiplier:
+          type: string
+        fee_multiplier:
+          type: string
+        total_repayment_amount:
+          type: string
+        paid_amount:
+          type: string
+        estimated_repayment_date:
+          type: string
+          format: date
+        voided_at:
+          type: string
+          format: date-time
+        date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        repayment_start_date:
+          type: string
+          format: date
+        capital_purposes:
+          type: array
+          items:
+            type: string
+        verified:
+          type: boolean
+        number:
+          type: string
+        funded:
+          type: boolean
+    CapitalProductState:
+      oneOf:
+        - $ref: '#/components/schemas/Abandoned'
+        - $ref: '#/components/schemas/Cancelled'
+        - $ref: '#/components/schemas/Outstanding'
+        - $ref: '#/components/schemas/Paid'
+        - $ref: '#/components/schemas/Void'
+        - $ref: '#/components/schemas/Waived'
+    CapitalProductType:
+      oneOf:
+        - $ref: '#/components/schemas/FlexLoan'
+        - $ref: '#/components/schemas/MerchantCashAdvance'
+    CapitalPurposeSerializer:
+      required:
+        - name
+        - count
+        - ratio
+      type: object
+      properties:
+        name:
+          type: string
+        count:
+          type: string
+        ratio:
+          type: string
+    CapitalPurposesSerializer:
+      type: object
+      properties:
+        purposes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CapitalPurposeSerializer'
+    CashAdvanceActivitySerializer:
+      required:
+        - id
+        - resource_id
+        - type
+        - cash_advance_id
+        - delta
+        - description
+        - date
+        - is_reversal
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        resource_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum:
+            - principal
+            - fee
+            - automatic_payment
+            - manual_payment
+            - generic
+            - payment_adjustment
+        cash_advance_id:
+          type: string
+          format: uuid
+        delta:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date
+        is_reversal:
+          type: boolean
+        formatted_source:
+          type: string
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineItem'
+        repayment_period_start_date:
+          type: string
+          format: date
+        repayment_period_end_date:
+          type: string
+          format: date
+        total_gross_payment_amount:
+          type: string
+        total_sale_amount:
+          type: string
+        platform:
+          type: string
+    CashAdvanceChargeOffSerializer:
+      required:
+        - created_at
+        - updated_at
+        - id
+        - cash_advance_id
+        - amount
+        - date
+        - charge_off_type
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        cash_advance_id:
+          type: string
+          format: uuid
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        charge_off_type:
+          type: string
+          enum:
+            - non_payment
+            - slow_payment
+            - platform_exit
+            - bankruptcy
+            - death
+            - fraud
+            - error
+    ChargeOffInputSerializer:
+      required:
+        - cash_advance_id
+        - charge_off_type
+        - date
+      type: object
+      properties:
+        cash_advance_id:
+          type: string
+          format: uuid
+        charge_off_type:
+          type: string
+          enum:
+            - non_payment
+            - slow_payment
+            - platform_exit
+            - bankruptcy
+            - death
+            - fraud
+            - error
+        date:
+          type: string
+          format: date
+    DataRequirement:
+      type: string
+      enum:
+        - irrelevent
+        - collect_if_missing
+        - collect_and_fix
+    DatasetType:
+      type: string
+      enum:
+        - business
+        - sale_record
+        - bank_account_info
+    DoordashAdminUser:
+      required:
+        - id
+        - created_at
+        - updated_at
+        - business_id
+        - email
+        - mx_role
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        business_id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        mx_role:
+          type: string
+          enum:
+            - BUSINESS GROUP ADMIN
+            - ADMIN
+            - N/A
+            - MANAGER
+            - STORE OPERATOR
+        first_used_at:
+          type: string
+          format: date-time
+    FlexLoan:
+      type: object
+    FundingChecklist:
+      required:
+        - manual_payment_delay
+        - fraud_block
+        - recent_admin_change
+        - recent_bank_change_block
+        - other_block
+        - previous_advance_not_paid
+        - blocked_by_partner
+        - plaid_investigation_denied
+      type: object
+      properties:
+        manual_payment_delay:
+          type: boolean
+        fraud_block:
+          type: boolean
+        recent_admin_change:
+          type: boolean
+        recent_bank_change_block:
+          type: boolean
+        other_block:
+          type: boolean
+        previous_advance_not_paid:
+          type: boolean
+        blocked_by_partner:
+          type: boolean
+        plaid_investigation_denied:
+          type: boolean
+        alloy_check_failed:
+          type: boolean
+        large_amount:
+          type: boolean
+        broken_bank_account:
+          type: boolean
+        mismatched_active_and_desired:
+          type: boolean
+        suspicious_bank:
+          type: boolean
+        missing_modern_treasury_id:
+          type: boolean
+        amazon_application_not_confirmed:
+          type: boolean
+    FundingChecklistSerializer:
+      required:
+        - business_id
+        - cash_advance_id
+        - checklist
+      type: object
+      properties:
+        business_id:
+          type: string
+          format: uuid
+        cash_advance_id:
+          type: string
+          format: uuid
+        checklist:
+          $ref: '#/components/schemas/FundingChecklist'
+        counterparty_id:
+          type: string
+          format: uuid
+    FundingSummarySerializer:
+      required:
+        - total_advanced
+        - average_advance
+        - average_fee
+        - average_repayment_rate
+        - total_fees
+        - total_advances
+      type: object
+      properties:
+        total_advanced:
+          type: string
+        average_advance:
+          type: string
+        average_fee:
+          type: string
+        average_repayment_rate:
+          type: string
+        total_fees:
+          type: string
+        total_advances:
+          type: integer
+    HealthStatusSerializer:
+      required:
+        - status
+        - count
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - ahead
+            - behind
+            - pending
+            - on_track
+            - delinquency_risk
+            - charge_off_risk
+        count:
+          type: integer
+    IdentificationSerializer:
+      required:
+        - identification_type
+        - value
+      type: object
+      properties:
+        identification_type:
+          type: string
+          enum:
+            - ssn
+            - sin
+            - tin
+            - passport_number
+            - drivers_license
+            - business_tax_id
+        value:
+          type: string
+    IngestionStatus:
+      type: string
+      enum:
+        - not_started
+        - pending
+        - success
+        - failed
+    LineItem:
+      required:
+        - description
+        - formatted_value
+      type: object
+      properties:
+        description:
+          type: string
+        formatted_value:
+          type: string
+    LocationAddress:
+      required:
+        - address_line1
+        - city
+        - state
+        - postal_code
+        - country
+      type: object
+      properties:
+        address_line1:
+          type: string
+        address_line2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postal_code:
+          type: string
+        country:
+          type: string
+    LocationAddress1:
+      required:
+        - address_line1
+        - city
+        - state
+        - postal_code
+        - country
+      type: object
+      properties:
+        address_line1:
+          type: string
+        address_line2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+          enum:
+            - AL
+            - AK
+            - AZ
+            - AR
+            - CA
+            - CO
+            - CT
+            - DE
+            - DC
+            - FL
+            - GA
+            - HI
+            - ID
+            - IL
+            - IN
+            - IA
+            - KS
+            - KY
+            - LA
+            - ME
+            - MD
+            - MA
+            - MI
+            - MN
+            - MS
+            - MO
+            - MT
+            - NE
+            - NV
+            - NH
+            - NJ
+            - NM
+            - NY
+            - NC
+            - ND
+            - OH
+            - OK
+            - OR
+            - PA
+            - PR
+            - RI
+            - SC
+            - SD
+            - TN
+            - TX
+            - UT
+            - VT
+            - VA
+            - WA
+            - WV
+            - WI
+            - WY
+        postal_code:
+          type: string
+        country:
+          type: string
+    LocationAddressSerializer:
+      required:
+        - address_line1
+        - city
+        - state
+        - postal_code
+        - country
+      type: object
+      properties:
+        address_line1:
+          type: string
+        address_line2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+          enum:
+            - AL
+            - AK
+            - AZ
+            - AR
+            - CA
+            - CO
+            - CT
+            - DE
+            - DC
+            - FL
+            - GA
+            - HI
+            - ID
+            - IL
+            - IN
+            - IA
+            - KS
+            - KY
+            - LA
+            - ME
+            - MD
+            - MA
+            - MI
+            - MN
+            - MS
+            - MO
+            - MT
+            - NE
+            - NV
+            - NH
+            - NJ
+            - NM
+            - NY
+            - NC
+            - ND
+            - OH
+            - OK
+            - OR
+            - PA
+            - PR
+            - RI
+            - SC
+            - SD
+            - TN
+            - TX
+            - UT
+            - VT
+            - VA
+            - WA
+            - WV
+            - WI
+            - WY
+        postal_code:
+          type: string
+        country:
+          type: string
+    ManualRepaymentInput:
+      required:
+        - account_id
+        - amount
+      type: object
+      properties:
+        account_id:
+          type: string
+          format: uuid
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+    ManualRepaymentSerializer:
+      required:
+        - id
+        - created_at
+        - updated_at
+        - account_id
+        - amount
+        - date
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        account_id:
+          type: string
+          format: uuid
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+    MerchantCashAdvance:
+      type: object
+    NotifyTicketResolutionInput:
+      required:
+        - object_id
+        - object_type
+        - outcome
+        - workflow
+        - resolved_by
+      type: object
+      properties:
+        object_id:
+          type: string
+          format: uuid
+        object_type:
+          type: string
+          enum:
+            - business
+            - cash_advance
+        outcome:
+          type: string
+          enum:
+            - approved
+            - denied
+        workflow:
+          type: string
+          enum:
+            - funding
+            - returns
+        resolved_by:
+          type: string
+    Outstanding:
+      type: object
+    OwnerRelationship:
+      required:
+        - business_id
+      type: object
+      properties:
+        business_id:
+          type: string
+          description: The id of the business that this person owns.
+          format: uuid
+    PaginatedResponse_BankAccountInfoSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankAccountInfoSerializer1'
+    PaginatedResponse_BusinessOnboardingRequirementSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessOnboardingRequirementSerializer'
+    PaginatedResponse_BusinessSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessSerializer'
+    PaginatedResponse_CapitalProductOfferCollectionSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CapitalProductOfferCollectionSerializer'
+    PaginatedResponse_CapitalProductSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CapitalProductSerializer'
+    PaginatedResponse_CashAdvanceActivitySerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CashAdvanceActivitySerializer'
+    PaginatedResponse_HealthStatusSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/HealthStatusSerializer'
+    PaginatedResponse_O:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankAccountInfoSerializer'
+    PaginatedResponse_Out:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DoordashAdminUser'
+    PaginatedResponse_PersonSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonSerializer'
+    PaginatedResponse_S3DatasetIntegrationSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/S3DatasetIntegrationSerializer'
+    PaginatedResponse_S3DatasetUploadSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/S3DatasetUploadSerializer'
+    PaginatedResponse_SaleRecordSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SaleRecordSerializer'
+    PaginatedResponse_WebhookSerializer:
+      type: object
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookSerializer'
+    Paid:
+      type: object
+    PartnerPatchDeserializer:
+      type: object
+      properties:
+        logo:
+          type: string
+        icon:
+          type: string
+        color:
+          type: string
+    PartnerSerializer:
+      required:
+        - id
+        - name
+        - slug
+        - color
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        logo:
+          type: string
+        icon:
+          type: string
+        slug:
+          type: string
+        color:
+          type: string
+    PersonDataRequirement:
+      required:
+        - name
+        - date_of_birth
+        - phone
+        - email
+        - address
+        - ssn
+        - owns_more_than25_percent_of_business
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DataRequirement'
+        date_of_birth:
+          $ref: '#/components/schemas/DataRequirement'
+        phone:
+          $ref: '#/components/schemas/DataRequirement'
+        email:
+          $ref: '#/components/schemas/DataRequirement'
+        address:
+          $ref: '#/components/schemas/DataRequirement'
+        ssn:
+          $ref: '#/components/schemas/DataRequirement'
+        owns_more_than25_percent_of_business:
+          $ref: '#/components/schemas/DataRequirement'
+    PersonDeserializer:
+      required:
+        - first_name
+        - last_name
+      type: object
+      properties:
+        owner_relationships:
+          type: array
+          items:
+            $ref: '#/components/schemas/OwnerRelationship'
+          description: 'Businesses that this Person owns. Warning: only one business per person is currently supported.'
+        first_name:
+          type: string
+        last_name:
+          type: string
+    PersonSerializer:
+      required:
+        - id
+        - first_name
+        - last_name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        owner_relationships:
+          type: array
+          items:
+            $ref: '#/components/schemas/OwnerRelationship'
+          description: 'Businesses that this Person owns. Warning: only one business per person is currently supported.'
+        first_name:
+          type: string
+        last_name:
+          type: string
+    PostDeserializer:
+      required:
+        - business_id
+      type: object
+      properties:
+        plaid_public_token:
+          type: string
+        routing_number:
+          type: string
+        account_number:
+          type: string
+        business_id:
+          type: string
+          format: uuid
+    RepaymentPauseCreateDeserializer:
+      required:
+        - account_id
+      type: object
+      properties:
+        account_id:
+          type: string
+          format: uuid
+        end_date:
+          type: string
+          format: date
+        reason:
+          type: string
+    RepaymentPauseSerializer:
+      required:
+        - id
+        - created_at
+        - updated_at
+        - account_id
+        - active_on
+        - pause_type
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        account_id:
+          type: string
+          format: uuid
+        active_on:
+          type: string
+        pause_type:
+          type: string
+          enum:
+            - cx
+            - pending_funding
+            - too_many_missed_repayments
+            - awaiting_retry_non_nsf_return
+        reason:
+          type: string
+    RepaymentPauseUpdateDeserializer:
+      type: object
+      properties:
+        end_date:
+          type: string
+          format: date
+        reason:
+          type: string
+    RepaymentSummarySerializer:
+      required:
+        - paid_down
+        - expected_paydown
+        - outstanding_balance
+        - total_repaid_ratio
+      type: object
+      properties:
+        paid_down:
+          type: string
+        expected_paydown:
+          type: string
+        outstanding_balance:
+          type: string
+        total_repaid_ratio:
+          type: string
+    S3DatasetIntegrationPostDeserializer:
+      required:
+        - aws_account_id
+      type: object
+      properties:
+        aws_account_id:
+          type: string
+    S3DatasetIntegrationSerializer:
+      required:
+        - id
+        - iam_role_arn
+        - s3_bucket_arn
+        - aws_account_id
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        iam_role_arn:
+          type: string
+        s3_bucket_arn:
+          type: string
+        aws_account_id:
+          type: string
+    S3DatasetUploadSerializer:
+      required:
+        - id
+        - s3_path
+        - uploaded_at
+        - dataset_type
+        - ingestion_status
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        s3_path:
+          type: string
+        uploaded_at:
+          type: string
+          format: date-time
+        dataset_type:
+          $ref: '#/components/schemas/DatasetType'
+        ingestion_status:
+          $ref: '#/components/schemas/IngestionStatus'
+    SaleRecordDeserializer:
+      required:
+        - business_id
+        - date
+        - sale_amount
+        - sale_count
+      type: object
+      properties:
+        business_id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        sale_amount:
+          type: number
+        sale_count:
+          type: integer
+        reversal_amount:
+          type: number
+        reversal_count:
+          type: integer
+    SaleRecordSerializer:
+      required:
+        - id
+        - business_id
+        - date
+        - sale_amount
+        - sale_count
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        business_id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        sale_amount:
+          type: number
+        sale_count:
+          type: integer
+        reversal_amount:
+          type: number
+        reversal_count:
+          type: integer
+    TicketSerializer:
+      required:
+        - id
+        - created_at
+        - updated_at
+        - object_id
+        - object_type
+        - outcome
+        - workflow
+        - resolved_by
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        object_id:
+          type: string
+          format: uuid
+        object_type:
+          type: string
+          enum:
+            - business
+            - cash_advance
+        outcome:
+          type: string
+          enum:
+            - approved
+            - denied
+        workflow:
+          type: string
+          enum:
+            - funding
+            - returns
+        resolved_by:
+          type: string
+    TimeseriesCollectionSerializer:
+      type: object
+      properties:
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeseriesSerializer'
+    TimeseriesDatapointSerializer:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+    TimeseriesSerializer:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        datapoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeseriesDatapointSerializer'
+    Void:
+      type: object
+    Waived:
+      type: object
+    WebhookDeleteSerializer:
+      type: object
+    WebhookPostDeserializer:
+      required:
+        - url
+      type: object
+      properties:
+        url:
+          type: string
+    WebhookSerializer:
+      required:
+        - id
+        - url
+        - secret_key
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+        secret_key:
+          type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      name: Authorization
+      in: header
+      scheme: basic
+    TokenAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+security:
+  - BasicAuth: []
+  - TokenAuth: []
